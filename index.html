@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Anniversary, My Love!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: url('https://www.transparenttextures.com/patterns/flowers.png'), linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      background-size: cover, cover;
+      background-repeat: repeat, no-repeat;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .parallax-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      opacity: 0.18;
+      will-change: transform;
+    }
+    .main-card {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 3rem auto 2rem auto;
+      background: rgba(255,255,255,0.92);
+      border-radius: 36px;
+      box-shadow: 0 12px 48px #d7266040, 0 2px 8px #fff6f8;
+      padding: 2.5rem 2rem 2rem 2rem;
+      border: 6px solid #f7c5cc;
+      overflow: hidden;
+      text-align: center;
+      animation: fadeIn 1.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .decorative-border {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .decorative-border.top-left {
+      top: -40px; left: -40px;
+      transform: rotate(-15deg);
+    }
+    .decorative-border.top-right {
+      top: -40px; right: -40px;
+      transform: scaleX(-1) rotate(-15deg);
+    }
+    .decorative-border.bottom-left {
+      bottom: -40px; left: -40px;
+      transform: rotate(15deg);
+    }
+    .decorative-border.bottom-right {
+      bottom: -40px; right: -40px;
+      transform: scaleX(-1) rotate(15deg);
+    }
+    .anniv-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      color: #d72660;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 16px #fff6f8, 0 0 8px #d7266040;
+      letter-spacing: 2px;
+      animation: typewriter 2.5s steps(30) 1s 1 normal both;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #d72660;
+      width: 0;
+    }
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .countdown {
+      font-size: 1.2rem;
+      color: #b23a48;
+      margin-bottom: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .gallery {
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+    }
+    .gallery-btn {
+      background: #d72660;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #d7266040;
+      transition: background 0.2s;
+      z-index: 2;
+    }
+    .gallery-btn:hover {
+      background: #b23a48;
+    }
+    .gallery-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 4px solid #d72660;
+      box-shadow: 0 4px 16px #d7266040;
+      background: #fff0f6;
+      transition: box-shadow 0.3s;
+    }
+    .message-section {
+      margin: 1.5rem 0 1rem 0;
+    }
+    .message-short {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .read-more {
+      color: #d72660;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-left: 0.3rem;
+      text-decoration: underline;
+    }
+    .message-full {
+      display: none;
+      font-size: 1.08rem;
+      color: #444;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    .music-player {
+      margin: 1.2rem 0 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      justify-content: center;
+    }
+    .music-btn {
+      background: linear-gradient(135deg, #d72660 60%, #ee9ca7 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #d7266040;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .music-btn:hover {
+      background: #b23a48;
+      transform: scale(1.1);
+    }
+    .music-status {
+      font-size: 1.1rem;
+      color: #b23a48;
+      font-weight: 500;
+    }
+    .quotes-carousel {
+      margin: 2rem 0 1rem 0;
+      font-size: 1.15rem;
+      color: #d72660;
+      font-family: 'Great Vibes', cursive;
+      min-height: 48px;
+      transition: opacity 0.5s;
+    }
+    .credit {
+      text-align: center;
+      color: #b23a48;
+      font-size: 1rem;
+      margin: 2rem 0 1rem 0;
+      opacity: 0.7;
+    }
+    /* Heart trail animation */
+    .heart-trail {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 1.5rem;
+      animation: heartTrailAnim 1.2s linear forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes heartTrailAnim {
+      0% { opacity: 1; transform: scale(1) translateY(0); }
+      100% { opacity: 0; transform: scale(1.8) translateY(-60px); }
+    }
+    /* Parallax effect for background */
+    @media (max-width: 800px) {
+      .main-card { padding: 1.2rem 0.2rem 1rem 0.2rem; max-width: 99vw; }
+      .gallery-img { width: 110px; height: 110px; }
+      .anniv-title { font-size: 2rem; }
+      .decorative-border { width: 60px; height: 60px; }
+    }
+    .showcase-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 250px;
+      margin: 40px 0 20px 0;
+    }
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.15);
+      border-radius: 30px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.2);
+      padding: 30px 20px;
+      max-width: 700px;
+      width: 100%;
+    }
+    .carousel-arrow {
+      background: #fff0f6;
+      border: none;
+      color: #d72660;
+      font-size: 2.2rem;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      margin: 0 18px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(215,38,96,0.08);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-arrow:hover {
+      background: #ffd6e0;
+      transform: scale(1.1);
+    }
+    .carousel-message {
+      flex: 1;
+      text-align: center;
+      font-size: 1.5rem;
+      font-family: 'Dancing Script', cursive, 'Segoe UI', sans-serif;
+      color: #d72660;
+      padding: 0 10px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+    @media (max-width: 600px) {
+      .carousel-container {
+        flex-direction: column;
+        padding: 18px 8px;
+      }
+      .carousel-arrow {
+        margin: 10px 0;
+        font-size: 2rem;
+        width: 40px;
+        height: 40px;
+      }
+      .carousel-message {
+        font-size: 1.1rem;
+        min-height: 40px;
+      }
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.18); }
+    }
+    .petal {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      background-image: url('https://cdn.pixabay.com/photo/2017/01/06/19/15/rose-1957744_1280.png');
+      background-size: cover;
+      opacity: 0.7;
+      animation: fallPetal 7s linear infinite;
+    }
+    @keyframes fallPetal {
+      0% { transform: translateY(-40px) rotateZ(0deg) scale(1); opacity:0.7; }
+      80% { opacity:0.7; }
+      100% { transform: translateY(100vh) rotateZ(180deg) scale(0.8); opacity:0; }
+    }
+    .timeline { display: flex; flex-direction: column; gap: 1.2rem; }
+    .timeline-item { display: flex; align-items: center; gap: 1rem; }
+    .timeline-img { width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 2px 8px #d7266040; }
+    .timeline-content { font-family:'Montserrat',sans-serif; color:#b23a48; font-size:1rem; }
+  </style>
+</head>
+<body>
+  <div class="parallax-bg" id="parallaxBg"></div>
+  <div class="main-card">
+    <div class="decorative-border top-left" style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:#d72660;opacity:0.7;">Floral</div>
+    <div class="decorative-border top-right" style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:#d72660;opacity:0.7;">Floral</div>
+    <div class="decorative-border bottom-left" style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:#d72660;opacity:0.7;">Floral</div>
+    <div class="decorative-border bottom-right" style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:#d72660;opacity:0.7;">Floral</div>
+    <div class="anniv-title" id="annivTitle">Happy Anniversary, My Love!</div>
+    <div class="countdown" id="countdown"></div>
+    <section class="showcase-message">
+      <div class="carousel-container">
+        <button class="carousel-arrow left" aria-label="Previous message">&#8592;</button>
+        <div class="carousel-message" id="carousel-message">
+          <!-- Messages will be injected here -->
+        </div>
+        <button class="carousel-arrow right" aria-label="Next message">&#8594;</button>
+      </div>
+    </section>
+    <!-- Photo Gallery Section -->
+    <div class="gallery">
+      <button class="gallery-btn" id="galleryPrev">&#8592;</button>
+      <img id="galleryImg" class="gallery-img" src="pics and vid/first.png" alt="Gallery Photo" />
+      <button class="gallery-btn" id="galleryNext">&#8594;</button>
+    </div>
+    <!-- Photo Collage Section -->
+    <div id="photoCollageCard" style="background:rgba(255,255,255,0.92);border-radius:24px;box-shadow:0 4px 24px #d7266040;padding:1.5rem 1rem;max-width:520px;margin:2rem auto 1.5rem auto;text-align:center;">
+      <h2 style="font-family:'Great Vibes',cursive;color:#d72660;font-size:2rem;margin-bottom:0.5rem;">Our Photo Collage</h2>
+      <div id="photoCollage" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;"></div>
+    </div>
+    <div class="message-section">
+      <div class="message-short">
+        Every moment with you is a treasure. <span class="read-more" onclick="showFullMessage()">Read More</span>
+      </div>
+      <div class="message-full" id="fullMessage">
+        Thank you for being my partner, my best friend, and my soulmate.<br />
+        I love you more with each passing day.<br />
+        <span style="font-family: 'Great Vibes', cursive; color: #d72660; font-size: 1.3rem;">Forever yours.</span>
+      </div>
+    </div>
+    <div class="quotes-carousel" id="quotesCarousel"></div>
+    <!-- Memory Timeline Section -->
+    <section id="memoryTimeline" style="max-width:520px;margin:2rem auto 1.5rem auto;background:rgba(255,255,255,0.92);border-radius:24px;box-shadow:0 4px 24px #d7266040;padding:1.5rem 1rem;">
+      <h2 style="font-family:'Great Vibes',cursive;color:#d72660;font-size:2rem;margin-bottom:1rem;">Our Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <img src="pics and vid/first.png" alt="First Photo" class="timeline-img" />
+          <div class="timeline-content">The day we met – my life changed forever.</div>
+        </div>
+        <div class="timeline-item">
+          <img src="pics and vid/WhatsApp Image 2025-06-26 at 5.55.39 PM.png" alt="Our First Trip Together" class="timeline-img" />
+          <div class="timeline-content">Our first trip together – laughter, love, and adventure.</div>
+        </div>
+        <div class="timeline-item">
+          <img src="pics and vid/WhatsApp Image 2025-06-26 at 6.06.19 PM (1).jpeg" alt="Another Memory" class="timeline-img" />
+          <div class="timeline-content">The day we said "I love you."</div>
+        </div>
+        <div class="timeline-item">
+          <img src="pics and vid/WhatsApp Image 2025-06-26 at 6.09.43 PM (2).jpeg" alt="Ever since that day, my world changed forever" class="timeline-img" />
+          <div class="timeline-content">Ever since that day, my world changed forever.</div>
+        </div>
+      </div>
+    </section>
+    <!-- Reasons I Love You Carousel -->
+    <section id="reasonsSection" style="max-width:520px;margin:2rem auto 1.5rem auto;background:rgba(255,255,255,0.92);border-radius:24px;box-shadow:0 4px 24px #d7266040;padding:1.5rem 1rem;text-align:center;">
+      <h2 style="font-family:'Great Vibes',cursive;color:#d72660;font-size:2rem;margin-bottom:1rem;">Reasons I Love You</h2>
+      <div class="reasons-carousel" style="display:flex;align-items:center;justify-content:center;gap:1.2rem;">
+        <button id="reasonsPrev" style="background:none;border:none;font-size:2rem;color:#d72660;cursor:pointer;">&#8592;</button>
+        <div id="reasonContent" style="min-width:220px;font-size:1.2rem;color:#b23a48;font-family:'Dancing Script',cursive;"></div>
+        <button id="reasonsNext" style="background:none;border:none;font-size:2rem;color:#d72660;cursor:pointer;">&#8594;</button>
+      </div>
+    </section>
+  </div>
+  <div class="credit">Made with ❤️ for our special day</div>
+  <div id="musicPlayer" style="position:fixed;top:24px;right:24px;z-index:1001;display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.85);border-radius:24px;box-shadow:0 2px 8px #d7266040;padding:0.4rem 1rem;">
+    <button id="musicToggleBtn" style="background:#d72660;color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:1.3rem;cursor:pointer;box-shadow:0 2px 8px #d7266040;">&#9658;</button>
+    <span id="musicStatus" style="color:#b23a48;font-size:1rem;font-family:'Montserrat',sans-serif;">Play Song</span>
+    <audio id="bgAudio" loop>
+      <source src="pics and vid/WhatsApp Video 2025-06-26 at 8.36.26 PM.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  <!-- Floating Petals Overlay -->
+  <div id="petalOverlay" style="pointer-events:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10;"></div>
+  <!-- Surprise Pop-up Heart Button -->
+  <button id="surpriseBtn" style="position:fixed;bottom:32px;right:32px;z-index:100;background:#d72660;color:#fff;border:none;border-radius:50%;width:56px;height:56px;font-size:2rem;box-shadow:0 2px 12px #d7266040;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">❤️</button>
+  <!-- Surprise Modal -->
+  <div id="surpriseModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:18px;box-shadow:0 4px 24px #d7266040;padding:2rem 1.5rem;max-width:340px;text-align:center;position:relative;">
+      <span id="surpriseText" style="font-family:'Dancing Script',cursive;font-size:1.3rem;color:#b23a48;"></span>
+      <button id="closeSurprise" style="position:absolute;top:8px;right:12px;background:none;border:none;font-size:1.5rem;color:#d72660;cursor:pointer;">&times;</button>
+    </div>
+  </div>
+  <script>
+    // Parallax background effect
+    document.addEventListener('mousemove', function(e) {
+      const bg = document.getElementById('parallaxBg');
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      bg.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Animated typewriter for title
+    window.onload = function() {
+      const title = document.getElementById('annivTitle');
+      setTimeout(() => { title.style.width = '100%'; }, 1200);
+    };
+
+    // Anniversary Countdown
+    const anniversaryDate = new Date('2024-06-28T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      let diff = now - anniversaryDate;
+      if (diff < 0) diff = 0;
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+      const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      let togetherText = `<span style='font-family:Great Vibes,cursive;font-size:2.1rem;color:#d72660;'>Together for 1 year</span><br>`;
+      togetherText += `<span style='font-size:1.1rem;color:#b23a48;'>(${years} years, ${days} days, ${hours} hours, ${mins} minutes, ${secs} seconds)</span>`;
+      document.getElementById('countdown').innerHTML = togetherText;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Romantic messages for the carousel
+    const romanticMessages = [
+      "Meri guriyaa, every moment with you feels like a dream come true.",
+      "Meri shehzadi, your smile lights up my world.",
+      "With you, meri guriyaa, every day is a celebration of love.",
+      "Meri shehzadi, you are my heart's greatest treasure.",
+      "Thank you, meri guriyaa, for filling my life with happiness and love.",
+      "Meri shehzadi, I am grateful for every memory we create together.",
+      "You are my today and all of my tomorrows, meri guriyaa.",
+      "Forever isn't long enough with you, meri shehzadi, by my side.",
+      "Meri guriyaa, your laughter is my favorite melody.",
+      "Meri shehzadi, you make ordinary moments extraordinary.",
+      "With you, meri guriyaa, I have found my home and my happiness.",
+      "Meri shehzadi, I fall in love with you all over again, every single day.",
+      "Thank you, meri guriyaa, for being my best friend and soulmate.",
+      "Meri shehzadi, you are my once-in-a-lifetime, my always, my everything.",
+      "Meri guriyaa, you are my heart's safe place and my comfort in every storm.",
+      "Happy Anniversary, meri shehzadi. Here's to the memories we've made and the dreams we've yet to chase together.",
+      "If I had to choose again, meri guriyaa, I'd choose you a thousand times over.",
+      "Thank you for loving me, meri shehzadi, and for making every day brighter.",
+      "With you, meri guriyaa, I have everything I need. I love you more than words can say.",
+      "Meri shehzadi, you are my forever and always."
+    ];
+
+    let currentMessage = 0;
+    const messageDiv = document.getElementById('carousel-message');
+    const leftArrow = document.querySelector('.carousel-arrow.left');
+    const rightArrow = document.querySelector('.carousel-arrow.right');
+
+    function showMessage(index) {
+      messageDiv.textContent = romanticMessages[index];
+    }
+
+    leftArrow.addEventListener('click', () => {
+      currentMessage = (currentMessage - 1 + romanticMessages.length) % romanticMessages.length;
+      showMessage(currentMessage);
+    });
+
+    rightArrow.addEventListener('click', () => {
+      currentMessage = (currentMessage + 1) % romanticMessages.length;
+      showMessage(currentMessage);
+    });
+
+    // Initialize
+    showMessage(currentMessage);
+
+    // Auto-advance messages every 5 seconds
+    let messageInterval = setInterval(() => {
+      currentMessage = (currentMessage + 1) % romanticMessages.length;
+      showMessage(currentMessage);
+    }, 5000);
+
+    // Photo Gallery Logic
+    const galleryPhotos = [
+      'pics and vid/first.png',
+      'pics and vid/WhatsApp Image 2025-06-26 at 6.09.43 PM (2).jpeg',
+      'pics and vid/WhatsApp Image 2025-06-26 at 6.09.43 PM (1).jpeg',
+      'pics and vid/WhatsApp Image 2025-06-26 at 5.55.39 PM.png',
+      'pics and vid/WhatsApp Image 2025-06-26 at 6.06.20 PM.jpeg',
+      'pics and vid/WhatsApp Image 2025-06-26 at 6.06.19 PM (1).jpeg',
+      'pics and vid/WhatsApp Image 2025-06-26 at 6.06.19 PM.jpeg'
+    ];
+    let currentPhoto = 0;
+    const galleryImg = document.getElementById('galleryImg');
+    const galleryPrev = document.getElementById('galleryPrev');
+    const galleryNext = document.getElementById('galleryNext');
+    function showPhoto(idx) {
+      galleryImg.src = galleryPhotos[idx];
+    }
+    galleryPrev.addEventListener('click', () => {
+      currentPhoto = (currentPhoto - 1 + galleryPhotos.length) % galleryPhotos.length;
+      showPhoto(currentPhoto);
+    });
+    galleryNext.addEventListener('click', () => {
+      currentPhoto = (currentPhoto + 1) % galleryPhotos.length;
+      showPhoto(currentPhoto);
+    });
+    let galleryInterval = setInterval(() => {
+      currentPhoto = (currentPhoto + 1) % galleryPhotos.length;
+      showPhoto(currentPhoto);
+    }, 5000);
+    showPhoto(currentPhoto);
+
+    // Read More effect
+    function showFullMessage() {
+      document.getElementById('fullMessage').style.display = 'block';
+      document.querySelector('.read-more').style.display = 'none';
+    }
+
+    // Love Quotes Carousel
+    const quotes = [
+      '“I love you not only for what you are, but for what I am when I am with you.”',
+      '“Whatever our souls are made of, his and mine are the same.”',
+      '“You are my today and all of my tomorrows.”',
+      '“Every love story is beautiful, but ours is my favorite.”',
+      '“Forever is a long time, but I wouldn\'t mind spending it by your side.”'
+    ];
+    let quoteIdx = 0;
+    const quotesCarousel = document.getElementById('quotesCarousel');
+    function showQuote(idx) {
+      quotesCarousel.style.opacity = 0;
+      setTimeout(() => {
+        quotesCarousel.textContent = quotes[idx];
+        quotesCarousel.style.opacity = 1;
+      }, 400);
+    }
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      showQuote(quoteIdx);
+    }, 4000);
+    showQuote(quoteIdx);
+
+    // Heart trail following mouse
+    document.addEventListener('mousemove', function(e) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-trail';
+      heart.innerHTML = '❤';
+      heart.style.left = (e.pageX - 10) + 'px';
+      heart.style.top = (e.pageY - 10) + 'px';
+      heart.style.color = `hsl(${Math.random()*30+340}, 80%, 60%)`;
+      heart.style.fontSize = (Math.random()*0.7+1.2) + 'rem';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1200);
+    });
+
+    // Confetti animation
+    function launchConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.position = 'fixed';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.top = '-30px';
+        conf.style.width = '12px';
+        conf.style.height = '12px';
+        conf.style.background = `hsl(${Math.random()*360},80%,70%)`;
+        conf.style.borderRadius = '50%';
+        conf.style.opacity = 0.8;
+        conf.style.zIndex = 10000;
+        conf.style.transition = 'transform 2.2s cubic-bezier(.23,1.02,.64,1), opacity 2.2s';
+        document.body.appendChild(conf);
+        setTimeout(() => {
+          conf.style.transform = `translateY(${window.innerHeight+60}px) rotate(${Math.random()*360}deg)`;
+          conf.style.opacity = 0;
+        }, 10);
+        setTimeout(() => conf.remove(), 2300);
+      }
+    }
+
+    // Reasons I Love You Carousel
+    const reasons = [
+      {icon:'💖', text:'You always make me smile.'},
+      {icon:'🌹', text:'You bring beauty to my life.'},
+      {icon:'🎶', text:'You are the music in my heart.'},
+      {icon:'🤗', text:'Your hugs make everything better.'},
+      {icon:'✨', text:'You believe in us, always.'},
+      {icon:'😍', text:'You are my best friend and soulmate.'},
+      {icon:'📝', text:'You write our love story every day.'}
+    ];
+    let reasonIdx = 0;
+    function showReason(idx) {
+      const el = document.getElementById('reasonContent');
+      if (el) el.innerHTML = `<span style='font-size:2.2rem;'>${reasons[idx].icon}</span><br>${reasons[idx].text}`;
+    }
+    document.getElementById('reasonsPrev').onclick = function() {
+      reasonIdx = (reasonIdx - 1 + reasons.length) % reasons.length;
+      showReason(reasonIdx);
+    };
+    document.getElementById('reasonsNext').onclick = function() {
+      reasonIdx = (reasonIdx + 1) % reasons.length;
+      showReason(reasonIdx);
+    };
+    showReason(reasonIdx);
+
+    const loveNotes = [
+      'You are my sunshine on every cloudy day.',
+      'Falling in love with you was the best thing that ever happened to me.',
+      'Every moment with you is a treasure.',
+      'I love you more than words can say.',
+      'You are my forever and always.',
+      'Thank you for being you.'
+    ];
+    document.getElementById('surpriseBtn').onclick = function() {
+      const note = loveNotes[Math.floor(Math.random()*loveNotes.length)];
+      document.getElementById('surpriseText').textContent = note;
+      document.getElementById('surpriseModal').style.display = 'flex';
+    };
+    document.getElementById('closeSurprise').onclick = function() {
+      document.getElementById('surpriseModal').style.display = 'none';
+    };
+
+    // Music Player Play/Pause Logic
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const musicStatus = document.getElementById('musicStatus');
+    const bgAudio = document.getElementById('bgAudio');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', function() {
+      if (!isPlaying) {
+        bgAudio.play();
+        musicBtn.innerHTML = '&#10073;&#10073;'; // Pause icon
+        musicStatus.textContent = 'Pause Song';
+        isPlaying = true;
+      } else {
+        bgAudio.pause();
+        musicBtn.innerHTML = '&#9658;'; // Play icon
+        musicStatus.textContent = 'Play Song';
+        isPlaying = false;
+      }
+    });
+
+    // Optional: Reset button/icon when song ends
+    bgAudio.addEventListener('ended', function() {
+      musicBtn.innerHTML = '&#9658;';
+      musicStatus.textContent = 'Play Song';
+      isPlaying = false;
+    });
+  </script>
+</body>
+</html>

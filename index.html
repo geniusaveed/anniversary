@@ -391,6 +391,8 @@
       <button id="closeSurprise" style="position:absolute;top:8px;right:12px;background:none;border:none;font-size:1.5rem;color:#d72660;cursor:pointer;">&times;</button>
     </div>
   </div>
+  <!-- Add a celebration message element (hidden by default) -->
+  <div id="celebrationMessage" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background:rgba(255,255,255,0.95);border-radius:32px;box-shadow:0 8px 32px #d7266040;padding:2.5rem 2rem;font-family:'Great Vibes', cursive;font-size:2.2rem;color:#d72660;z-index:99999;">🎉 Happy Anniversary, meri guriyaa & meri shehzadi! 🎉</div>
   <script>
     // Parallax background effect
     document.addEventListener('mousemove', function(e) {
@@ -407,19 +409,49 @@
     };
 
     // Anniversary Countdown
-    const anniversaryDate = new Date('2024-06-28T00:00:00');
+    // Set the anniversary date to 2 hours and 48 minutes from now
+    const anniversaryDate = new Date(Date.now() + 2 * 60 * 60 * 1000 + 48 * 60 * 1000);
+
+    let celebrationShown = false;
+
+    function showCelebration() {
+      const celebrationDiv = document.getElementById('celebrationMessage');
+      celebrationDiv.style.display = 'block';
+      launchConfetti();
+      setTimeout(() => {
+        celebrationDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // Update the countdown logic to trigger celebration
     function updateCountdown() {
       const now = new Date();
-      let diff = now - anniversaryDate;
-      if (diff < 0) diff = 0;
-      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-      const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      let togetherText = `<span style='font-family:Great Vibes,cursive;font-size:2.1rem;color:#d72660;'>Together for 1 year</span><br>`;
-      togetherText += `<span style='font-size:1.1rem;color:#b23a48;'>(${years} years, ${days} days, ${hours} hours, ${mins} minutes, ${secs} seconds)</span>`;
-      document.getElementById('countdown').innerHTML = togetherText;
+      let diff = anniversaryDate - now;
+      if (diff > 0) {
+        // Show time remaining until anniversary
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        let countdownText = `<span style='font-family:Great Vibes,cursive;font-size:2.1rem;color:#d72660;'>Anniversary in</span><br>`;
+        countdownText += `<span style='font-size:1.1rem;color:#b23a48;'>${hours} hours, ${mins} minutes, ${secs} seconds</span>`;
+        document.getElementById('countdown').innerHTML = countdownText;
+      } else {
+        // Show celebration only once
+        if (!celebrationShown) {
+          showCelebration();
+          celebrationShown = true;
+        }
+        // Show time together since anniversary
+        diff = now - anniversaryDate;
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        let togetherText = `<span style='font-family:Great Vibes,cursive;font-size:2.1rem;color:#d72660;'>Together for 1 year</span><br>`;
+        togetherText += `<span style='font-size:1.1rem;color:#b23a48;'>(${years} years, ${days} days, ${hours} hours, ${mins} minutes, ${secs} seconds)</span>`;
+        document.getElementById('countdown').innerHTML = togetherText;
+      }
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
